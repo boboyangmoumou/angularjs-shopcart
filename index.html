@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous">
+    <title>shopcart</title>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="control">
+        <table class="table text-center">
+            <tr ng-show="data.length===0" ng-hide="data.length>0" class="text-center">
+                <td colspan="5">购物车空了</td>
+            </tr>
+            <tr>
+                <th class="text-center">商品</th>
+                <th class="text-center" ng-click="change()">价格
+
+                </th>
+                <th class="text-center">数量</th>
+                <th class="text-center">合计</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <!--循环加筛选-->
+            <tr ng-repeat="item in data | orderBy:status+price">
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>
+                    <from class="form-inline">
+                        <div class="form-group" style="margin: 0 auto;">
+                            <div class="input-group">
+                                <div class="input-group-addon" ng-click="add(item.id)" style="cursor: pointer;"> + </div>
+                                <input type="text" class="form-control" id="exampleInputAmount" ng-model="item.num">
+                                <div class="input-group-addon" ng-click="reduce(item.id)" style="cursor: pointer;"> - </div>
+                            </div>
+                        </div>
+                    </from>
+                </td>
+                <td>{{item.price*item.num}}</td>
+                <td><input type="button" class="btn btn-lg btn-primary" value="删除" ng-click="del(item.id)" style="cursor: pointer;"</td>
+            </tr>
+            <tr>
+                <td>合计数量</td>
+                <td>{{getNum()}}</td>
+                <td>合计价格</td>
+                <td>{{getPrice()}}</td>
+                <td><input  type="button" class="btn btn-lg btn-primary" value="清空数据库" ng-click="clear()" style="cursor: pointer;"</td>
+            </tr>
+
+        </table>
+    </div>
+
+</body>
+
+
+</html>
